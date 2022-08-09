@@ -1,0 +1,89 @@
+﻿@model ETicaretBasic.Models.ShoppingCart
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container">
+    <br />
+    <div class="row">
+        <form method="post">
+            <input hidden asp-for="ProductID" />
+            <div class="card mb-12">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        <img src="@Model.Product.Image" class="img-fluid rounded-start" height="130" width="130" alt="...">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <dl class="row">
+                                <dt class="col-sm-3">
+                                    @Html.Label("Stok")
+                                </dt>
+                                <dd class="col-sm-9">
+                                    @if (Model.Product.StockStatus)
+                                    {
+                                        <p>Var</p>
+                                    }
+                                    else
+                                    {
+                                        <p>Yok</p>
+                                    }
+                                </dd>
+                                <dt class="col-sm-3">
+                                    @Html.Label("Başlık")
+                                </dt>
+                                <dd class="col-sm-9">
+                                    @Model.Product.Title
+                                </dd>
+                                <dt class="col-sm-3">
+                                    @Html.Label("Açıklama")
+                                </dt>
+                                <dd class="col-sm-9">
+                                    @Model.Product.Description
+                                </dd>
+                                <dt class="col-sm-3">
+                                    @Html.Label("Fiyatı")
+                                </dt>
+                                <dd class="col-sm-9">
+                                    @Model.Product.Price.ToString("0,00")TL
+                                </dd>
+                                <dt class="col-sm-3">
+                                    @Html.Label("Adet")
+                                </dt>
+                                <dd class="col-sm-9">
+                                    <input asp-for="Count" class="form-control" />
+                                </dd>
+                            </dl>
+
+                        </div>
+                    </div>
+                    <br />
+                    <div class="col col-md-1">
+
+                    </div>
+                    <div class="col col-md-3">
+                        <a class="btn btn-primary form-control" asp-action="Index" asp-controller="Home"><i class="bi bi-house-door"></i>Anasayfa</a>
+                    </div>
+                    <div class="col col-md-4">
+
+                    </div>
+                    <div class="col col-md-3">
+                        @if (Model.Product.StockStatus)
+                        {
+                            <button type="submit" class="btn btn-success form-control"><i class="bi bi-bag-plus"></i>Sepete Ekle</button>
+                        }
+                        else
+                        {
+                            <label class="btn btn-danger form-control"><i class="bi bi-card4">Ürün Tükendi</i></label>
+                        }
+                    </div>
+                    <div class="col col-md-1">
+
+                    </div>
+                </div>
+            </div>
+            
+          
+        </form>
+    </div>
+</div>

@@ -1,0 +1,15 @@
+﻿@model IEnumerable<ETicaretBasic.Models.Category>
+<div class="col-md-3">
+    <div class="card">
+        <div class="list-group">
+            <a asp-action="Index" asp-controller="Home" class="list-group-item list-group-item-action @(ViewBag.KategoriId==null?"active":"")" aria-current="true">
+                TÜM ÜRÜNLER
+            </a>
+
+            @foreach (var item in Model)
+            {
+                <a asp-action="CategoryDetails" class="list-group-item list-group-item-action  @(ViewBag.KategoriId?.ToString()==item.CategoryID.ToString()?"active":"")" asp-route-id="@item.CategoryID">@item.CategoryName</a>
+            }
+        </div>
+    </div>
+</div>

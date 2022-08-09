@@ -1,0 +1,74 @@
+﻿@model IEnumerable<ETicaretBasic.Models.OrderHeader>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="btn-group d-grid gap-2 d-md-flex justify-content-md-end" role="group" aria-label="Basic outlined example">
+    <a asp-action="Beklenen" asp-area="Admin" asp-controller="Order" type="button" class="btn btn-outline-primary">Beklenen Siparişler</a>
+    <a asp-action="Onaylanan" asp-area="Admin" asp-controller="Order" type="button" class="btn btn-outline-primary">Onaylanan Siparişler</a>
+    <a asp-action="Kargolandı" asp-area="Admin" asp-controller="Order" type="button" class="btn btn-outline-primary">Kargolanan Siparişler</a>
+    <a asp-action="Index" asp-area="Admin" asp-controller="Order" type="button" class="btn btn-outline-primary active">Tüm Siparişler</a>
+</div>
+<br /><br /><br /><br /><br />
+<div class="container">
+  
+    <table id="myTable" class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>
+                    Adı
+                </th>
+                <th> Soyad</th>
+                <th> Telefon</th>
+                <th>Sipariş Durum</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Surname)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PhoneNumber)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.OrderStatus)
+                </td>
+                <td>
+                    @if (User.IsInRole(Other.Role_Admin))
+                    {
+
+                        <a asp-action="Details" asp-route-id="@item.ShoppingCartID" class="btn btn-success"><i class="bi bi-pencil-square"></i>Düzenle</a>
+
+                    }
+                    else
+                    {
+                        <a asp-action="Details" asp-route-id="@item.ShoppingCartID" class="btn btn-success"><i class="bi bi-pencil-square"></i>Detay</a>
+                    }
+                </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+
+</div>
+@section Scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#myTable').DataTable({
+                language: {
+                    "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Turkish.json"
+                }
+            });
+        });
+    </script>
+}
